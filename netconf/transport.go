@@ -74,9 +74,12 @@ func (t *transportBasicIO) Send(data []byte) error {
 	}
 	dataInfo = append(dataInfo, data...)
 	dataInfo = append(dataInfo, seperator...)
-	t.Write(dataInfo)
+	_, err := t.Write(dataInfo)
+	if err != nil {
+		return err
+	}
 
-	return nil // TODO: Implement error handling!
+	return nil
 }
 
 func (t *transportBasicIO) Receive() ([]byte, error) {
